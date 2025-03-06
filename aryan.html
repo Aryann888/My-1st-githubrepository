@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Something Special for You 💖</title>
+    <style>
+        body {
+            background-color: pink;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        .heart {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 1;
+            animation: fadeOut 5s linear forwards;
+        }
+        @keyframes fadeOut {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+        }
+        .box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            margin-top: 20vh;
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
+        }
+        .buttons {
+            margin-top: 10px;
+        }
+        button {
+            background: #ff1493;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #ff69b4;
+        }
+        #no {
+            position: absolute;
+        }
+        .hidden {
+            display: none;
+        }
+        @keyframes boomHearts {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(3); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <audio id="bg-music" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+    </audio>
+    
+    <div id="start-screen" class="box">
+        <h2>I have something special for you! 💝</h2>
+        <div class="buttons">
+            <button onclick="showMainScreen()">Open it! 🎁</button>
+        </div>
+    </div>
+    
+    <div id="main-screen" class="box hidden">
+        <h2>Will you be my Valentine? 💘</h2>
+        <div class="buttons">
+            <button onclick="nextPage()">Yes</button>
+            <button id="no" onclick="moveNo()">No</button>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById("bg-music").play();
+        
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerText = ["💝", "💓", "💖", "💞", "💗"][Math.floor(Math.random() * 5)];
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.top = "100vh";
+            heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+        setInterval(createHeart, 300);
+        
+        function showMainScreen() {
+            let startScreen = document.getElementById("start-screen");
+            startScreen.style.opacity = "0";
+            setTimeout(() => {
+                startScreen.classList.add("hidden");
+                document.getElementById("main-screen").classList.remove("hidden");
+                createBoomHearts();
+            }, 1000);
+        }
+        
+        function createBoomHearts() {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement("div");
+                    heart.classList.add("heart");
+                    heart.innerText = ["💝", "💓", "💖", "💞", "💗"][Math.floor(Math.random() * 5)];
+                    heart.style.left = Math.random() * 100 + "vw";
+                    heart.style.top = Math.random() * 100 + "vh";
+                    heart.style.position = "absolute";
+                    heart.style.fontSize = "3rem";
+                    heart.style.animation = "boomHearts 1s ease-out forwards";
+                    document.body.appendChild(heart);
+                    setTimeout(() => heart.remove(), 1000);
+                }, i * 100);
+            }
+        }
+        
+        function moveNo() {
+            let btn = document.getElementById("no");
+            btn.style.left = Math.random() * 80 + "vw";
+            btn.style.top = Math.random() * 80 + "vh";
+        }
+        
+        function nextPage() {
+            let newWindow = window.open("", "", "width=400,height=300,top=200,left=500");
+            newWindow.document.write(`
+                <html>
+                <head>
+                    <title>Special Message 💖</title>
+                    <style>
+                        body {
+                            background-color: pink;
+                            text-align: center;
+                            font-family: Arial, sans-serif;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            height: 100vh;
+                            margin: 0;
+                        }
+                        .box {
+                            background: white;
+                            padding: 20px;
+                            border-radius: 10px;
+                            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+                        }
+                        button {
+                            background: #ff1493;
+                            color: white;
+                            border: none;
+                            padding: 10px 20px;
+                            margin: 10px;
+                            font-size: 1.2rem;
+                            cursor: pointer;
+                            border-radius: 5px;
+                            transition: 0.3s;
+                        }
+                        button:hover {
+                            background: #ff69b4;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="box">
+                        <h2>Can I flex you, cutie? 💖</h2>
+                        <button onclick="alert('Yay! Everyone will know how cute you are! 💕')">Of course!</button>
+                    </div>
+                </body>
+                </html>
+            `);
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
